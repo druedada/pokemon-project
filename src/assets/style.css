@@ -1,0 +1,513 @@
+/***********************************************
+ * GLOBAL & BASIC ELEMENT STYLES
+ ***********************************************/
+ main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  button {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /***********************************************
+   * MAIN LAYOUT
+   ***********************************************/
+  .app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 20px;
+  }
+  
+  .main-title {
+    text-align: center;
+    color: #2c3e50;
+    margin: 20px 0;
+    font-size: 2em;
+  }
+  
+  /***********************************************
+   * BATTLE SECTION
+   ***********************************************/
+  #battle-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 50px;
+    background-color: #f0f8ff;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: fit-content;
+  }
+
+  #battle-section h1, 
+  #battle-section h2 {
+    margin: 10px 0;
+  }
+
+  #perform-attack-button {
+    margin-top: 20px;
+  }
+  
+  /***********************************************
+   * TEAM DISPLAY
+   ***********************************************/
+  .team-display {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+  }
+
+  .team-display h3 {
+    margin: 15px 0;
+    font-size: 1.4em;
+    color: #2c3e50;
+  }
+  
+  /***********************************************
+   * POKEMON GRID
+   ***********************************************/
+  #pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pokemon-card {
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.5); /* Makes them transparent */
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .pokemon-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border: 2px solid #4a90e2;
+  }
+  
+  .pokemon-card h3 {
+    font-size: 1.2em;
+    margin: 5px 0;
+  }
+  
+  .pokemon-card p {
+    margin: 2px 0;
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  .pokemon-card.selected {
+    border: 2px solid green;
+    background-color: rgba(0, 255, 0, 0.1);
+  }
+  
+  /***********************************************
+   * SELECTED TEAM GRID
+   ***********************************************/
+  #selected-team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /***********************************************
+   * PLAYER-SPECIFIC TEAM GRIDS
+   ***********************************************/
+  .player1-selected-team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px auto;
+    background-color: lightsalmon; /* Distinctive background */
+  }
+  
+  .player2-selected-team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px auto;
+    margin-bottom: 30px;
+    background-color: lightgreen; /* Distinctive background */
+  }
+  
+  /***********************************************
+   * SETUP SECTION (PLAYER INPUT) STYLES
+   ***********************************************/
+  .setup-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .setup-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .setup-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .setup-instructions {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .player-input-group {
+    margin: 15px 0;
+    text-align: left;
+  }
+  
+  .player-label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 5px;
+  }
+  
+  .player-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .player-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .setup-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .setup-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .setup-button:active {
+    background-color: #004085;
+  }
+  
+  .setup-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /***********************************************
+   * TOGGLE SWITCH STYLES
+   ***********************************************/
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-left: 10px;
+  }
+  
+  /* Hide default checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* Slider track */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  /* Checkbox checked state */
+  input:checked + .slider {
+    background-color: #007bff;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  /***********************************************
+   * SORT OPTIONS SECTION
+   ***********************************************/
+  #sort-options-section {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  #sort-options-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .sort-fields-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  #sort-team {
+    margin-top: 20px;
+    width: 200px;
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  /***********************************************
+   * BUTTONS
+   ***********************************************/
+  .setup-button,
+  .next-player-button,
+  #sort-team,
+  #perform-attack-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 10px;
+  }
+  
+  .setup-button:hover,
+  .next-player-button:hover,
+  #sort-team:hover,
+  #perform-attack-button:hover {
+    background-color: #357abd;
+  }
+  
+  /***********************************************
+   * BATTLE ARENA & LOG
+   ***********************************************/
+  /* Battle Arena Section */
+  #battle-arena-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  #battle-arena-section > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+  }
+  
+  /* Flexbox container for battle elements */
+  .battle-container {
+    display: flex;
+    flex-direction: row; /* Horizontal layout */
+    align-items: center;
+    gap: 30px; /* Space between elements */
+  }
+  
+  /* Battle log container */
+  .battle-log-container {
+    margin: 20px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    width: 250px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Ensures new messages align at the bottom */
+    overflow: hidden; /* Prevents extra scrollbars */
+  }
+  
+  #battle-log {
+    scroll-behavior: smooth;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  /* Optional: Style scrollbar for Webkit browsers (Chrome, Safari) */
+  #battle-log::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  #battle-log::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 10px;
+  }
+  
+  /* VS text styling */
+  .vs-text {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0 20px;
+    align-self: center;
+    color: #ff4500;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Adjust each Pokémon's display */
+  .pokemon-fighter {
+      flex: 1;
+      max-width: 200px;
+      margin: 10px;
+      text-align: center;
+      width: 250px; 
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: 2px solid black;
+      background-color: rgba(255, 255, 255, 0.5); 
+  }
+  
+  /* Pokémon images */
+  #pokemon1-display img,
+  #pokemon2-display img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #4a90e2;
+  }
+  
+  /* Pokémon background colors */
+  #pokemon1-display {
+      background-color: rgba(255, 160, 122, 0.6); 
+  }
+  
+  #pokemon2-display {
+      background-color: rgba(144, 238, 144, 0.6); 
+  }
+  
+  /***********************************************
+   * GRID CONTAINER
+   ***********************************************/
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  /***********************************************
+   * BATTLE DISPLAY
+   ***********************************************/
+  .battle-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 20px auto;
+  }
