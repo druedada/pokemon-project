@@ -16,18 +16,18 @@ import { Player, PokemonList, PokemonTeam } from "../models/model.js";
  * @class PokemonTeamViewModel
  */
 export class PokemonTeamViewModel {
-  constructor(jsonUrl = "/src/assets/pokemon_data.json") {
-    this.player1 = reactive(new Player());
-    this.player2 = reactive(new Player());
-    this.currentPlayer = ref(this.player1);
-    this.team = reactive(new PokemonTeam());
-    this.pokemonList = reactive(new PokemonList());
-    this.battleLog = ref([]);
+  constructor(jsonUrl = "/data/pokemon_data.json"){
+    this.player1 = new Player();
+    this.player2 = new Player();
+    this.currentPlayer = this.player1;
+    this.team = new PokemonTeam();
+    this.pokemonList = new PokemonList();
+    this.battleLog = ref([]); // Inicializar como ref
     this.jsonUrl = jsonUrl;
   }
 
   /**
-   * Carrega la llista de Pokémon des d'un fitxer JSON
+   * Carrega la llista de Pokémon des de les dades proporcionades
    * @async
    */
   async fetchAndLoadPokemons() {
@@ -37,7 +37,9 @@ export class PokemonTeamViewModel {
       if (!response.ok) {
         throw new Error("HTTP error: " + response.status);
       }
-      const data = await response.json();
+      const jsonData = await response.json();
+      // Ensure data is an array
+      const data = Array.isArray(jsonData) ? jsonData : Object.values(jsonData);
       console.log("Data fetched:", data);
       this.pokemonList.loadPokemons(data);
     } catch (error) {
@@ -246,8 +248,7 @@ export class PokemonTeamViewModel {
    * efectes visuals i registre de batalla
    */
   async startBattle() {
-    // Reset battle log
-    this.battleLog.value = [];
+    this.battleLog.value = []; // Reset battleLog
     this.addToBattleLog("🔥 Iniciant la batalla...", 'h2');
     this.addToBattleLog(`${this.player1.name} vs ${this.player2.name}`, 'h2');
 

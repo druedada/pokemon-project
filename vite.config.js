@@ -6,23 +6,13 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, './src'),
     }
   },
+  assetsInclude: ['**/*.json'],
   server: {
     fs: {
       strict: false
     }
-  },
-  assetsInclude: ['**/*.json'],
-  css: {
-    preprocessorOptions: {
-      css: {
-        charset: false
-      }
-    }
-  },
-  build: {
-    sourcemap: true
   }
 })

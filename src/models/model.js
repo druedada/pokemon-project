@@ -1,7 +1,27 @@
 const MAX_CREDITS = 200;
 const MAX_TEAM_SIZE = 6;
-// Update the image path to point to the public directory
-const IMAGE_FILE_PATH = '/src/assets/images/'; // Path to the images folder
+
+// Remove top-level await and use synchronous imports
+const images = import.meta.glob('/src/assets/images/pokemon/*.png', { eager: true });
+const pokemonImages = Object.fromEntries(
+  Object.entries(images).map(([path, module]) => [
+    path.split('/').pop().replace('.png', '').toLowerCase(),
+    module.default
+  ])
+);
+
+function getImagePath(name) {
+  const normalizedName = name.toLowerCase();
+  const imagePath = pokemonImages[normalizedName];
+  
+  if (!imagePath) {
+    console.error(`Image not found for ${name}`);
+    return pokemonImages['default'] || ''; // Fallback image
+  }
+  
+  return imagePath;
+}
+
 // =========================
 // Classe Base: Pokemon
 // =========================
@@ -58,238 +78,73 @@ export class PokemonList {
     return sortedPokemons;
   }
   formatFilename(filename) {
-    // Special cases
-    if (filename === 'Nidoran♀') return 'nidoran♀.png';
-    if (filename === 'Nidoran♂') return 'nidoran♂.png';
-    if (filename.includes('-')) return filename.toLowerCase() + '.png';
-    
+    // Special cases with hyphens and special characters
+    const specialCases = {
+      'Nidoran♀': 'nidoran♀',
+      'Nidoran♂': 'nidoran♂',
+      'Porygon-Z': 'porygon-z',
+      'Flabébé': 'flabébé',
+      'Ho-oh': 'ho-oh',
+      'Jangmo-o': 'jangmo-o',
+      'Hakamo-o': 'hakamo-o',
+      'Kommo-o': 'kommo-o',
+      'Wo-Chien': 'wo-chien',
+      'Chien-Pao': 'chien-pao',
+      'Ting-Lu': 'ting-lu',
+      'Chi-Yu': 'chi-yu'
+    };
+
+    // Check if it's a special case
+    if (specialCases[filename]) {
+      return specialCases[filename];
+    }
+
     // Regular filename handling
-    filename = filename.trim()
+    return filename.trim()
       .toLowerCase()
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9\s-]/g, ''); // Updated to keep hyphens
-
-    let words = filename.split(/[\s-]+/); // Split by spaces and hyphens
-    let formattedName = words[0] + 
-      words.slice(1)
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('');
-
-    console.log(`Loading image: ${formattedName}.png`);
-    return `${formattedName}.png`;
+      .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+      .replace(/[^a-z0-9\-]/g, ''); // Keep hyphens, remove other special chars
   }
   loadPokemons(data) {
     try {
-      data.map((pokemon, index) => {
-        switch (pokemon.class_type) {
-          case "GrassPokemon":
-            this._allPokemons.push(
-              new GrassPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "FirePokemon":
-            this._allPokemons.push(
-              new FirePokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "WaterPokemon":
-            this._allPokemons.push(
-              new WaterPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "ElectricPokemon":
-            this._allPokemons.push(
-              new ElectricPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "BugPokemon":
-            this._allPokemons.push(
-              new BugPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "NormalPokemon":
-            this._allPokemons.push(
-              new NormalPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "PoisonPokemon":
-            this._allPokemons.push(
-              new PoisonPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "PsychicPokemon":
-            this._allPokemons.push(
-              new PsychicPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "GroundPokemon":
-            this._allPokemons.push(
-              new GroundPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "FairyPokemon":
-            this._allPokemons.push(
-              new FairyPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "RockPokemon":
-            this._allPokemons.push(
-              new RockPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "IcePokemon":
-            this._allPokemons.push(
-              new IcePokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "DragonPokemon":
-            this._allPokemons.push(
-              new DragonPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "DarkPokemon":
-            this._allPokemons.push(
-              new DarkPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "SteelPokemon":
-            this._allPokemons.push(
-              new SteelPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "GhostPokemon":
-            this._allPokemons.push(
-              new GhostPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "FightingPokemon":
-            this._allPokemons.push(
-              new FightingPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          case "FlyingPokemon":
-            this._allPokemons.push(
-              new FlyingPokemon(
-                index + 1,
-                pokemon.name,
-                IMAGE_FILE_PATH + this.formatFilename(pokemon.name),
-                pokemon.points,
-                pokemon.special_power
-              )
-            );
-            break;
-          default:
-            console.log(`No s'ha trobat la classe ${pokemon.class_type}`);
-            throw new Error(`Unknown class type: ${pokemon.class_type}`);
+      data.forEach((pokemon, index) => {
+        const filename = this.formatFilename(pokemon.name);
+        const imagePath = getImagePath(filename);
+        
+        if (!imagePath) {
+          console.error(`Could not load image for ${pokemon.name}`);
+          return;
         }
+
+        // Replace eval with a safer alternative
+        const PokemonClasses = {
+          GrassPokemon, FirePokemon, WaterPokemon, ElectricPokemon,
+          BugPokemon, NormalPokemon, PoisonPokemon, PsychicPokemon,
+          GroundPokemon, FairyPokemon, RockPokemon, IcePokemon,
+          DragonPokemon, DarkPokemon, SteelPokemon, GhostPokemon,
+          FightingPokemon, FlyingPokemon
+        };
+
+        const PokemonClass = PokemonClasses[pokemon.class_type];
+        if (!PokemonClass) {
+          throw new Error(`Unknown class type: ${pokemon.class_type}`);
+        }
+
+        this._allPokemons.push(
+          new PokemonClass(
+            index + 1,
+            pokemon.name,
+            imagePath,
+            pokemon.points,
+            pokemon.special_power
+          )
+        );
       });
       this.isLoaded = true; // Marquem com a carregat
       console.log("Pokémon carregats correctament:", this._allPokemons.length);
     } catch (error) {
-      console.error("Error carregant Pokémon des del JSON:", error);
+      console.error("Error carregant Pokémon:", error);
       this.isLoaded = false;
     }
   }

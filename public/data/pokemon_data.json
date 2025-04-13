@@ -7318,15 +7318,6 @@
       "class_type": "WaterPokemon"
   },
   {
-      "name": "Type: Null",
-      "types": [
-          "Normal"
-      ],
-      "points": 31,
-      "special_power": 146,
-      "class_type": "NormalPokemon"
-  },
-  {
       "name": "Silvally",
       "types": [
           "Normal"
