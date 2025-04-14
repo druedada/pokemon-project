@@ -27,12 +27,22 @@ Adaptació del projecte Pokémon a Vue.js utilitzant Vite com a bundler. El joc 
 
 ## Estructura del Projecte
 ```
-src/
-  ├── components/    # Components Vue reutilitzables
-  ├── models/       # Classes del model de dades
-  ├── viewmodels/   # Lògica de negoci i estat
-  ├── assets/       # Recursos estàtics
-  └── App.vue       # Component principal
+pokemon-project/
+  ├── public/           # Recursos estàtics públics
+  │   └── data/         # Dades JSON
+  │       └── pokemon_data.json
+  ├── src/
+  │   ├── components/   # Components Vue reutilitzables
+  │   ├── models/      # Classes del model de dades
+  │   ├── viewmodels/  # Lògica de negoci i estat
+  │   ├── assets/      # Recursos estàtics privats
+  │   ├── styles/      # Fitxers CSS i estils
+  │   └── App.vue      # Component principal
+  ├── dist/            # Carpeta de distribució (build)
+  ├── node_modules/    # Dependencies del projecte
+  ├── index.html       # Punt d'entrada HTML
+  ├── vite.config.js   # Configuració de Vite
+  └── package.json     # Configuració del projecte
 ```
 
 ## Característiques Principals

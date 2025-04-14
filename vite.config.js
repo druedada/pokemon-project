@@ -4,6 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [vue()],
+  base: './', // Add this line to make assets work with relative paths
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -14,5 +15,9 @@ export default defineConfig({
     fs: {
       strict: false
     }
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
   }
 })

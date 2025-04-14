@@ -16,7 +16,7 @@ import { Player, PokemonList, PokemonTeam } from "../models/model.js";
  * @class PokemonTeamViewModel
  */
 export class PokemonTeamViewModel {
-  constructor(jsonUrl = "/pokemon_data.json"){
+  constructor(jsonUrl = "./data/pokemon_data.json"){
     this.player1 = new Player();
     this.player2 = new Player();
     this.currentPlayer = this.player1;
@@ -33,22 +33,15 @@ export class PokemonTeamViewModel {
   async fetchAndLoadPokemons() {
     try {
       console.log("Fetching from URL:", this.jsonUrl);
-      fetch(this.jsonUrl).then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error: ${res.status}`);
-        }
-        return res.json;
-      }).then((data) => {
-        // Asegurarse de que data es un array
-      const pokemonArray = Array.isArray(data) ? data : Object.values(data);
-      console.log("Data processed:", pokemonArray);
-      this.pokemonList.loadPokemons(pokemonArray);
-      });
- 
-     } catch (error) {
+      const response = await fetch(this.jsonUrl);
+      if (!response.ok) {
+        throw new Error("HTTP error: " + response.status);
+      }
+      const data = await response.json();
+      console.log("Data fetched:", data);
+      this.pokemonList.loadPokemons(data);
+    } catch (error) {
       console.error("Error loading Pokémon data:", error);
-      // Si hay error, usar los datos del import directamente
-      this.pokemonList.loadPokemons(this.jsonUrl);
     }
   }
 
